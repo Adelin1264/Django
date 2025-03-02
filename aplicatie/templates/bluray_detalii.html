@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ro">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Detalii BluRay</title>
+        <link rel="stylesheet" href="{% static 'bluray_detalii.css' %}">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+    </head>
+    <body>
+        {% include 'meniu.html' %}
+        <div class="container">
+            <div class="card">
+                <div class="image-container">
+                    <img src="{{ bluray.imagine.url }}" alt="Imagine BluRay" class="bluray-image">
+                </div>
+                <div class="details-container">
+                    <h1 class="title">{{ bluray.titlu }}</h1>
+                    <p class="info"><strong>Calitate Video:</strong> {{ bluray.calitate_video }}</p>
+                    <p class="info"><strong>Preț:</strong> <span class="bluray-price">{{ bluray.pret }} RON</span></p>
+                    <p class="info"><strong>Stoc:</strong> {{ bluray.stoc }}</p>
+                    <p class="info"><strong>Subtitrări:</strong> 
+                        {% if bluray.subtitrari %}
+                            Da
+                        {% else %}
+                            Nu
+                        {% endif %}
+                    </p>
+                    <h2>Filme disponibile pe acest BluRay:</h2>
+                    <ul class="film-list">
+                        {% for film in bluray.filme.all %}
+                        <li class="film-item">
+                            <h3>{{ film.nume_film }}</h3>
+                            <p><strong>Descriere:</strong> {{ film.descriere_film }}</p>
+                            <p><strong>Durată:</strong> {{ film.durata_film }}</p>
+                            <p><strong>Data Lansare:</strong> {{ film.data_lansare }}</p>
+                            <p><strong>Pentru Adulți:</strong> {% if film.pt_adulti %} Da {% else %} Nu {% endif %}</p>
+                            <p><strong>Genuri:</strong> 
+                                {% for gen in film.gen.all %}
+                                    {{ gen.denumire_gen }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                            <p><strong>Director:</strong> {{ film.director.nume_director }}</p>
+                        </li>
+                        {% empty %}
+                        <li>Niciun film disponibil pentru acest BluRay.</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="actions">
+                        <a href="{% url 'bluray_form' %}" class="back-link">Înapoi la listă</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

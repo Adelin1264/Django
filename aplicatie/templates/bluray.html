@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ro">
+    <head>
+        <title>Filtrare BluRays</title>
+    </head>
+    <body>
+        <h1>Lista BluRays</h1>
+        <form method="GET" action="">
+            {% csrf_token %}
+            <input type="text" name="titlu" placeholder="Caută după titlu">
+            <input type="text" name="calitate_video" placeholder="Calitate video">
+            <input type="number" name="pret_min" placeholder="Preț minim">
+            <input type="number" name="pret_max" placeholder="Preț maxim">
+            <input type="number" name="stoc_min" placeholder="Stoc minim">
+            <select name="subtitrari">
+                <option value="">Toate</option>
+                <option value="1">Cu subtitrări</option>
+                <option value="0">Fără subtitrări</option>
+            </select>
+            <button type="submit">Filtrează</button>
+        </form>
+
+        <ul>
+            {% for bluray in page_obj %}
+                <li>
+                    <h2>{{ bluray.titlu }}</h2>
+                    <p>Calitate Video: {{ bluray.calitate_video }}</p>
+                    <p>Preț: {{ bluray.pret }}</p>
+                    <p>Stoc: {{ bluray.stoc }}</p>
+                    <p>Subtitrări: 
+                        {% if bluray.subtitrari %}
+                            Da
+                        {% else %}
+                            Nu
+                        {% endif %}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div>
+            <span>Pagina {{ page_obj.number }} din {{ page_obj.paginator.num_pages }}</span>
+        </div>
+        <div>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">Pagina Anterioară</a>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Pagina Următoare</a>
+            {% endif %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,94 @@
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    max-width: 1000px;
+    width: 100%;
+    gap: 20px;
+}
+
+.image-container {
+    flex: 1;
+    background: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.bluray-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.details-container {
+    flex: 2;
+    padding: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.info {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+.bluray-price {
+    font-size: 1.5rem;
+    color: #6c63ff;
+    margin: 1rem 0;
+    font-weight: bold;
+}
+
+.film-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.film-item {
+    margin-bottom: 15px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.actions a {
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(90deg, #6c63ff, #8c8eff);
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.actions a:hover {
+    background: linear-gradient(90deg, #5754d7, #7a79ff);
+}

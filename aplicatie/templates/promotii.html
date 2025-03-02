@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Adaugă Promoție</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<header>
+    <h1>Adaugă o nouă promoție</h1>
+</header>
+<body>
+    {% include 'meniu.html' %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Creează Promoție și Trimite Mailuri</button>
+    </form>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

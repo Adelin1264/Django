@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ro">
+    <head>
+        <title>BluRayHUB</title>
+        <link rel="stylesheet" href="{% static 'blurays.css' %}">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+    </head>
+    <header>
+        <h1>Lista BluRays</h1>
+    </header>
+    <body>
+        {% include 'meniu.html' %}
+        <div class="filter-form">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_nume">Nume:</label>
+                    {{ form.nume }}
+                </div>
+                <div class="form-group">
+                    <label for="id_calitate_video">Calitate video:</label>
+                    {{ form.calitate_video }}
+                </div>
+                <div class="form-group">
+                    <label for="id_pret_minim">Preț minim:</label>
+                    {{ form.pret_minim }}
+                </div>
+                <div class="form-group">
+                    <label for="id_pret_maxim">Preț maxim:</label>
+                    {{ form.pret_maxim }}
+                </div>
+                <div class="form-group">
+                    <label for="id_stoc">Stoc minim:</label>
+                    {{ form.stoc }}
+                </div>
+                <div class="form-group">
+                    <label for="id_subtitrari">Subtitrări:</label>
+                    {{ form.subtitrari }}
+                </div>
+                <button type="submit">Filtrează</button>
+            </form>
+        </div>
+        <div class="bluray-list">
+            <ul>
+                {% for bluray in page_obj %}
+                <li class="bluray-card">
+                    {% if bluray.imagine %}
+                        <img src="{{ bluray.imagine.url }}" alt="{{ bluray.titlu }}">
+                    {% else %}
+                        <p>Fără imagine disponibilă</p>
+                    {% endif %}
+                    <div class="bluray-details">
+                        <h2 class="bluray-title">
+                            <a href="{% url 'bluray_detalii' bluray.id %}">{{ bluray.titlu }}</a>
+                        </h2>
+                        <p class="bluray-price">Preț: {{ bluray.pret }} RON</p>
+                        <p class="bluray-stoc">Stoc: {{ bluray.stoc }}</p>
+                        <p>Calitate Video: {{ bluray.calitate_video }}</p>
+                        <p>Subtitrări: {% if bluray.subtitrari %} Da {% else %} Nu {% endif %}</p>
+                        <div class="bluray-actions">
+                            <a href="{% url 'bluray_detalii' bluray.id %}">Vezi detalii</a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <footer>
+            <p>Pagina {{ page_obj.number }} din {{ page_obj.paginator.num_pages }}</p>
+            <div>
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">Pagina Anterioară</a>
+                {% endif %}
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Pagina Următoare</a>
+                {% endif %}
+            </div>
+        </footer>
+    </body>
+</html>
